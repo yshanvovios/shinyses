@@ -3,7 +3,7 @@ library(shinydashboard)
 
 ui <- dashboardPage(
   dashboardHeader(
-    title = "Scheduler Expert System",
+    title = "Scheduler Expert Systems",
     titleWidth = 300
     ),
   
