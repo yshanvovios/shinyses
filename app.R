@@ -55,38 +55,11 @@ ui <- dashboardPage(
                               }
                               '))),
     
-    # infoBoxes with fill=FALSE
-    # fluidRow(
-    #   # A static infoBox
-    #   infoBox("New Orders", 10 * 2, icon = icon("credit-card")),
-    #   # Dynamic infoBoxes
-    #   infoBoxOutput("progressBox"),
-    #   infoBoxOutput("approvalBox")
-    # ),
     
-    # infoBoxes with fill=TRUE
-    fluidRow(
-      infoBox("New Orders", 10 * 2, icon = icon("credit-card"), fill = TRUE),
-      infoBoxOutput("progressBox2"),
-      infoBoxOutput("approvalBox2")
-    ),
-    fluidRow(
-      # Clicking this will increment the progress amount
-      box(width = 4, actionButton("count", "Increment progress"))
-    ),
     
    
     
-    fluidRow(
-      box(
-        title = "Box title", width = 6, status = "primary",
-        "Box content"
-      ),
-      box(
-        status = "warning", width = 6,
-        "Box content"
-      )
-    ),
+    
     
     
     
@@ -94,6 +67,27 @@ ui <- dashboardPage(
     tabItems(
       # First tab content
       tabItem(tabName = "dashboard",
+              
+              # infoBoxes with fill=FALSE
+              # fluidRow(
+              #   # A static infoBox
+              #   infoBox("New Orders", 10 * 2, icon = icon("credit-card")),
+              #   # Dynamic infoBoxes
+              #   infoBoxOutput("progressBox"),
+              #   infoBoxOutput("approvalBox")
+              # ),
+              
+              # infoBoxes with fill=TRUE
+              fluidRow(
+                infoBox("New Orders", 10 * 2, icon = icon("credit-card"), fill = TRUE),
+                infoBoxOutput("progressBox2"),
+                infoBoxOutput("approvalBox2")
+              ),
+              fluidRow(
+                # Clicking this will increment the progress amount
+                box(width = 4, actionButton("count", "Increment progress"))
+              ),
+              
               fluidRow(
                 box(plotOutput("plot1", height = 250)),
                 
@@ -101,7 +95,19 @@ ui <- dashboardPage(
                   title = "Controls",
                   sliderInput("slider", "Number of observations:", 1, 100, 50)
                 )
+              ),
+              
+              fluidRow(
+                box(
+                  title = "Box title", width = 6, status = "primary",
+                  "Box content"
+                ),
+                box(
+                  status = "warning", width = 6,
+                  "Box content"
+                )
               )
+              
       ),
       
       
