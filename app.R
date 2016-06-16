@@ -110,7 +110,16 @@ ui <- dashboardPage(
       
       # Second tab content
       tabItem(tabName = "widgets",
-              h2("Widgets tab content")
+              
+              shinyUI(navbarPage("Charts",
+                                 tabPanel("Component 1"),
+                                 tabPanel("Component 2"),
+                                 navbarMenu("More",
+                                            tabPanel("Sub-Component A"),
+                                            tabPanel("Sub-Component B"))
+              ))
+              
+              
       )
     )
     
