@@ -2,6 +2,7 @@
 library(shinydashboard)
 
 ui <- dashboardPage(
+  
   dashboardHeader(
     title = "Scheduler Expert Systems",
     titleWidth = 300,
@@ -26,17 +27,51 @@ ui <- dashboardPage(
                    icon = icon("life-ring"),
                    time = "2016-06-16"
                  )
+    ),
+    
+    # Dropdown menu for notifications
+    dropdownMenu(type = "notifications", badgeStatus = "warning",
+                 notificationItem(icon = icon("users"), status = "info",
+                                  "5 new members joined today"
+                 ),
+                 notificationItem(icon = icon("warning"), status = "danger",
+                                  "Resource usage near limit."
+                 ),
+                 notificationItem(icon = icon("shopping-cart", lib = "glyphicon"),
+                                  status = "success", "25 sales made"
+                 ),
+                 notificationItem(icon = icon("user", lib = "glyphicon"),
+                                  status = "danger", "You changed your username"
+                 )
+    ),
+    
+    # Dropdown menu for tasks, with progress bar
+    dropdownMenu(type = "tasks", badgeStatus = "danger",
+                 taskItem(value = 20, color = "aqua",
+                          "Refactor code"
+                 ),
+                 taskItem(value = 40, color = "green",
+                          "Design new layout"
+                 ),
+                 taskItem(value = 60, color = "yellow",
+                          "Another task"
+                 ),
+                 taskItem(value = 80, color = "red",
+                          "Write documentation"
+                 )
     )
     
     
-    ),
+  ),
   
   ## Sidebar
   dashboardSidebar(
     width = 300,
     sidebarMenu(
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-      menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+      menuItem("Widgets", tabName = "widgets", icon = icon("th")),
+      menuItem("charts", tabName = "charts", icon = icon("area-chart"))
+      
     )
   ),
   
@@ -57,7 +92,7 @@ ui <- dashboardPage(
     
     
     
-   
+    
     
     
     
@@ -117,7 +152,7 @@ ui <- dashboardPage(
       # Second tab content
       tabItem(tabName = "widgets",
               
-              shinyUI(navbarPage("Charts",
+              shinyUI(navbarPage("Widgets",
                                  tabPanel("Component 1"),
                                  tabPanel("Component 2"),
                                  navbarMenu("More",
@@ -126,14 +161,26 @@ ui <- dashboardPage(
               ))
               
               
+      ),
+      
+      tabItem(tabName = "chart",
+              shinyUI(navbarPage("Charts",
+                                 tabPanel("Component 1"),
+                                 tabPanel("Component 2"),
+                                 navbarMenu("More",
+                                            tabPanel("Sub-Component A"),
+                                            tabPanel("Sub-Component B"))
+              ))
       )
+      
+      
+      
+      
     )
-    
-   
-    
-    
   )
-  )
+)
+
+
 
 server <- function(input, output) {
   set.seed(122)
@@ -171,6 +218,8 @@ server <- function(input, output) {
     data <- histdata[seq_len(input$slider)]
     hist(data)
   })
+  
+  
   
   # For Dynamic Content
   # output$messageMenu <- renderMenu({
