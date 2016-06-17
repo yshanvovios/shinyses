@@ -7,7 +7,7 @@ ui <- dashboardPage(
     title = "Scheduler Expert Systems",
     titleWidth = 300,
     
-    # for Dynamic Content
+    # for Dynamic Content a
     # dropdownMenuOutput("messageMenu"),
     
     dropdownMenu(type = "messages",
