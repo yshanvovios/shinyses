@@ -70,8 +70,11 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       menuItem("Widgets", tabName = "widgets", icon = icon("th")),
-      menuItem("charts", tabName = "charts", icon = icon("area-chart"))
-      
+      menuItem("Chart1", tabName = "test-1", icon = icon("th")),
+      menuItem("Chart2", tabName = "test-2", icon = icon("th")),
+      menuItem("Chart3", tabName = "test-3", icon = icon("th")),
+      menuItem("Chart4", tabName = "test-4", icon = icon("th")),
+      menuItem("Chart5", tabName = "test-5", icon = icon("th"))
     )
   ),
   
@@ -163,15 +166,58 @@ ui <- dashboardPage(
               
       ),
       
-      tabItem(tabName = "chart",
-              shinyUI(navbarPage("Charts",
-                                 tabPanel("Component 1"),
-                                 tabPanel("Component 2"),
-                                 navbarMenu("More",
-                                            tabPanel("Sub-Component A"),
-                                            tabPanel("Sub-Component B"))
-              ))
+     
+      tabItem(tabName = "test-1",
+              h2("Chart1"),
+              fluidRow(
+                tabBox(
+                  title = "First tabBox",
+                  # The id lets us use input$tabset1 on the server to find the current tab
+                  id = "tabset1", height = "250px",
+                  tabPanel("Tab1", "First tab content"),
+                  tabPanel("Tab2", "Tab content 2")
+                )
+              ),
+              tabBox(
+                side = "right", height = "250px",
+                selected = "Tab3",
+                tabPanel("Tab1", "Tab content 1"),
+                tabPanel("Tab2", "Tab content 2"),
+                tabPanel("Tab3", "Note that when side=right, the tab order is reversed.")
+              )
+      ,
+      fluidRow(
+        tabBox(
+          # Title can include an icon
+          title = tagList(shiny::icon("gear"), "tabBox status"),
+          tabPanel("Tab1",
+                   "Currently selected tab from first box:",
+                   verbatimTextOutput("tabset1Selected")
+          ),
+          tabPanel("Tab2", "Tab content 2")
+        )
       )
+      ),
+      
+      tabItem(tabName = "test-2",
+              h2("Chart2")
+      ),
+      
+      tabItem(tabName = "test-3",
+              h2("Chart3")
+      ),
+      
+      tabItem(tabName = "test-4",
+              h2("Chart4")
+      ),
+      
+      tabItem(tabName = "test-5",
+              h2("Chart5")
+      )
+      
+     
+      
+      
       
       
       
@@ -217,6 +263,11 @@ server <- function(input, output) {
   output$plot1 <- renderPlot({
     data <- histdata[seq_len(input$slider)]
     hist(data)
+  })
+  
+  # The currently selected tab from the first box
+  output$tabset1Selected <- renderText({
+    input$tabset1
   })
   
   
